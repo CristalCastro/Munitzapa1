@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="contenedor"><h1>nuevo Ciudadano</h1>
+<P>{{error}}</P>
+
+<div class="ciu">
+<form action="/Ciudadano/" method="POST">
+  {% csrf_token %}
+  {{Form}}
+<div class="ciu">
+  <p><label for="nombre">Nombre:</label> <input type="text" name="nombre" id="id_nombre"></p>
+  <p><label for="apellido">Apellido:</label> <input type="text" name="apellido" id="id_apellido"></p>
+  <p><label for="dpi">DPI:</label> <input type="text" name="dpi" id="dpi"></p>
+  <p><label for="email">Email:</label> <input type="text" name="email" id="email"></p>
+</div>
+
+  <button>Save</button>
+  <button>modificar</button>
+  <button>eliminar</button>
+
+
+
+</form>
+</div>
+<div class="ciu2">
+    <img src="./img/LOGO_MUNI_SAI_HORIZONTAL_SOBRE_AZUL.png" alt="Muni" style="top: 10px;">
+ 
+</div>
+</div>
+
+
+
+{% endblock %}

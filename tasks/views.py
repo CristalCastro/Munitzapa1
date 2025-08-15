@@ -6,6 +6,9 @@ from django.db import IntegrityError
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from .models import Task
+from .models import Colaborador
+from .models import Gestion
+from .models import Ciudadano
 
 from .forms import TaskForm
 
@@ -59,8 +62,8 @@ def create_task(request):
 def home(request):
     return render(request, 'home.html')
 
-
 @login_required
+
 def signout(request):
     logout(request)
     return redirect('home')
@@ -107,3 +110,16 @@ def delete_task(request, task_id):
     if request.method == 'POST':
         task.delete()
         return redirect('tasks')
+    
+
+@login_required
+def delete_task(request, task_id):
+    task = get_object_or_404(Task, pk=task_id, user=request.user)
+    if request.method == 'POST':
+        task.delete()
+        return redirect('tasks')
+  
+def Ciudadano(request):
+    Ciudadano = Task.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
+    return render(request, 'ciudadano.html', {"tasks": tasks})
+

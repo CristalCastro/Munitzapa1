@@ -31,14 +31,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_interface',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tasks'
+    'tasks',
+    'colorfield'
 ]
+
+X_FRAME_OPTIONS= 'SAMEORIGIN'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,8 +81,14 @@ WSGI_APPLICATION = 'djangocrud.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'NAME': BASE_DIR/'db.sqlite3',
+        #'ENGINE': 'django.db.backends.mysql',
+        #'NAME': 'Municipalidad',
+        #'USER': 'root',
+        #'PASSWORD': '2486*',
+        #'HOST': 'localhost',
+        #'PORT': ''
+        }
 }
 
 
@@ -104,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-419'
 
 TIME_ZONE = 'UTC'
 
@@ -124,3 +134,7 @@ LOGIN_URL = '/signin'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#MEDIA ROOT
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR /'MEDIA'
