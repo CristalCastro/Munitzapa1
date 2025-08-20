@@ -80,15 +80,16 @@ WSGI_APPLICATION = 'djangocrud.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR/'db.sqlite3',
-        #'ENGINE': 'django.db.backends.mysql',
-        #'NAME': 'Municipalidad',
-        #'USER': 'root',
-        #'PASSWORD': '2486*',
-        #'HOST': 'localhost',
-        #'PORT': ''
-        }
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': BASE_DIR/'db.sqlite3',
+        #'ENGINE': 'mysql.connector.django',  ## con python
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Municipalidad1',
+        'USER': 'root',
+        'PASSWORD': '2486*',
+        'HOST': 'localhost',
+        'PORT': '3306',
+}
 }
 
 

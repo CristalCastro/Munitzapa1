@@ -10,6 +10,7 @@ class TaskAdmin(admin.ModelAdmin):
 class CiudadanoAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'apellido', 'dpi', 'telefono', 'email']
     search_fields = ['nombre', 'apellido', 'dpi']
+    #readonly_fields = ['nombre', 'apellido', 'dpi', 'telefono', 'email'] #fija los campos para no modificarlos
 
 @admin.register(Gestion)
 class GestionAdmin(admin.ModelAdmin):
@@ -18,21 +19,24 @@ class GestionAdmin(admin.ModelAdmin):
     readonly_fields = ['created']
     search_fields = ['ciudadano__nombre', 'ciudadano__apellido']
 
+
 @admin.register(Colaborador)
 class ColaboradorAdmin(admin.ModelAdmin):
-    # CORREGIDO: 'departamento_gestion' no 'Departamento_Gestion'
     list_display = ['nombre_colaborador', 'clave_colaborador', 'departamento_gestion']
     list_filter = ['departamento_gestion']
+    readonly_fields = ('clave_colaborador', 'fecha')# para que no se pueda editar la clave del colaborador
 
 @admin.register(DepartamentoGestion)
 class DepartamentoGestionAdmin(admin.ModelAdmin):
     list_display = ['nombre_departamento', 'descripcion']
     search_fields = ['nombre_departamento']
+    list_filter = ('nombre_departamento',)
+    
 
 @admin.register(Solicitud_gestion)
 class SolicitudGestionAdmin(admin.ModelAdmin):
     list_display = ['ciudadano', 'descripcion', 'estado', 'created']
-    list_filter = ['estado']
+    list_filter = ['estado','Tipo_solicitud', 'created']
     search_fields = ['ciudadano__nombre', 'descripcion']
 
 
