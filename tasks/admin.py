@@ -35,7 +35,7 @@ class DepartamentoGestionAdmin(admin.ModelAdmin):
 
 @admin.register(Solicitud_gestion)
 class SolicitudGestionAdmin(admin.ModelAdmin):
-    list_display = ['ciudadano', 'descripcion', 'estado', 'created']
+    list_display = ['ciudadano','Tipo_solicitud','estado', 'created']
     list_filter = ['estado','Tipo_solicitud', 'created']
     search_fields = ['ciudadano__nombre', 'descripcion']
 

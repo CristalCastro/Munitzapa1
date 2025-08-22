@@ -85,9 +85,9 @@ GESTION_STATUS = [
     (6, 'Cancelada')
 ]    
 
-class Gestion(models.Model):  # PascalCase corregido
+class Gestion(models.Model):  
     ciudadano = models.ForeignKey(Ciudadano, on_delete=models.CASCADE)  # Relación mejor
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
     datecompleted = models.DateTimeField(null=True, blank=True)
     departamento_gestion =models.CharField(choices= DEPARTAMENTOS, default= 'AM', max_length=10)  # Corregido el campo de departamento
@@ -124,7 +124,6 @@ class Colaborador(models.Model):
     nombre_colaborador = models.CharField(max_length=100)
     genero = models.CharField(max_length=1, choices=GENEROS, verbose_name="Género")
     Estado_civil = models.PositiveSmallIntegerField(choices=ESTADOS_CIVIL, default=1)
-    
     departamento_gestion = models.CharField(max_length=10, choices=DEPARTAMENTOS, default='AM')
     
     # Validador aplicado correctamente al campo
@@ -165,15 +164,11 @@ class Colaborador(models.Model):
         verbose_name_plural = "Colaboradores"
 
 
-
-
- 
 class DepartamentoGestion(models.Model):  
-    #nombre_departamento = models.CharField(max_length=100)
-    #nombre_departamento = models.PositiveSmallIntegerField(choices=DEPARTAMENTOS, default=1)
     nombre_departamento = models.CharField(max_length=10, choices=DEPARTAMENTOS, default='AM')
     Colaborador_responsable = models.ForeignKey(Colaborador, on_delete=models.CASCADE, null=True, blank=True)
     descripcion = models.TextField(max_length=1000)
+    
     def __str__(self):
         return self.nombre_departamento
 
@@ -193,46 +188,47 @@ TIPO_SOL = [
     (8, 'Solicitud de Información'),
     (9, 'Solicitud de Queja'),  
     (10,'Solicitud de carta de Residencia'),
-    (11, 'Solicitud de procesos Jurídicos'),
-    (12, 'Solicitud de Certificación de Nichos'),
-    (13, 'Solicitud de Certificación de Propiedad'),
-    (14, 'Solicitud de Donaciones'),
-    (15, 'Solicitud de Licencia de Funcionamiento'),
-    (16, 'Solicitud de Limpieza de calles'),
-    (17, 'Solicitud de Mantenimiento de Agua Xepacay'),
-    (18, 'Solicitud de Mantenimiento de Parques'),
-    (19, 'Solicitud de Mantenimiento de Cementerio'),
-    (20, 'Solicitud de Donaciones de Arboles'),
-    (21, 'Solicitud de Actividades Culturales'),
-    (22, 'Solicitud de Actividades Deportivas'),
-    (23, 'Solicitud de Actividades Recreativas'),
-    (24, 'Solicitud de Actividades Educativas'),
-    (25, 'Solicitud de Actividades Sociales'),
-    (26, 'Solicitud de Actividades Económicas'),
-    (27, 'Solicitud de Actividades Ambientales'),
-    (28, 'Solicitud de Actividades de Salud'),
-    (29, 'Solicitud de Actividades de Seguridad'),
-    (30, 'Solicitud de Actividades de Infraestructura'),
-    (31, 'Solicitud de Actividades de Actividades de Ferias'),
-    (32, 'Solicitud de Control Fontanería'),
-    (33, 'Solicitud de Alquiler de Espacios Públicos'),
-    (34, 'Solicitud de Alquiler de Salones'),    
-    (35, 'Otros')
+    (11,'Solicitud de procesos Jurídicos'),
+    (12,'Solicitud de Certificación de Nichos'),
+    (13,'Solicitud de Certificación de Propiedad'),
+    (14,'Solicitud de Donaciones'),
+    (15,'Solicitud de Licencia de Funcionamiento'),
+    (16,'Solicitud de Limpieza de calles'),
+    (17,'Solicitud de Mantenimiento de Agua Xepacay'),
+    (18,'Solicitud de Mantenimiento de Parques'),
+    (19,'Solicitud de Mantenimiento de Cementerio'),
+    (20,'Solicitud de Donaciones de Arboles'),
+    (21,'Solicitud de Actividades Culturales'),
+    (22,'Solicitud de Actividades Deportivas'),
+    (23,'Solicitud de Actividades Recreativas'),
+    (24,'Solicitud de Actividades Educativas'),
+    (25,'Solicitud de Actividades Sociales'),
+    (26,'Solicitud de Actividades Económicas'),
+    (27,'Solicitud de Actividades Ambientales'),
+    (28,'Solicitud de Actividades de Salud'),
+    (29,'Solicitud de Actividades de Seguridad'),
+    (30,'Solicitud de Actividades de Infraestructura'),
+    (31,'Solicitud de Actividades de Actividades de Ferias'),
+    (32,'Solicitud de Control Fontanería'),
+    (33,'Solicitud de Alquiler de Espacios Públicos'),
+    (34,'Solicitud de Alquiler de Salones'),    
+    (35,'Otros')
 ]    
 class TipoSolicitud(models.Model):
-    Tipo = models.CharField(max_length=10, choices=TIPO_SOL, default=1)
+    Tipo_solicitud = models.IntegerField(choices=TIPO_SOL, default=1)
     descripcion = models.TextField(blank=True)
     DepartamentoGestion = models.ForeignKey(DepartamentoGestion, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return self.nombre
+        return f"{self.Tipo_solicitud}"
     
 class Solicitud_gestion(models.Model): 
     numero_solicitud = models.CharField(max_length=20, default=generar_numero, unique=True)
-    Tipo_solicitud = models.CharField(max_length=10, choices=TIPO_SOL, default='1 SOLICITUD DE AGUA')
+    Tipo_solicitud = models.IntegerField(choices=TIPO_SOL, default=1)
     fecha = models.DateTimeField(auto_now_add=True)   
     ciudadano = models.ForeignKey(Ciudadano, on_delete=models.CASCADE)
-    descripcion = models.TextField(max_length=1000)
+    descripcion = models.TextField(max_length=100)
+    #gestion= models.ForeignKey(Gestion, on_delete=models.CASCADE, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     estado = models.PositiveSmallIntegerField(choices=GESTION_STATUS, default=1)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
